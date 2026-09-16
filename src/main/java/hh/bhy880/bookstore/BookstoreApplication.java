@@ -1,5 +1,6 @@
 package hh.bhy880.bookstore;
 
+import hh.bhy880.bookstore.domain.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,25 +8,44 @@ import org.springframework.context.annotation.Bean;
 
 import hh.bhy880.bookstore.domain.Book;
 import hh.bhy880.bookstore.domain.BookRepository;
+import hh.bhy880.bookstore.domain.Category;
 
 @SpringBootApplication
 public class BookstoreApplication {
 
-	public static void main(String[] args) {
+	private final CategoryRepository categoryRepository;
+
+
+
+    BookstoreApplication(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+
+
+    public static void main(String[] args) {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
 
 
 
 @Bean
-public CommandLineRunner alustaTietokantta(BookRepository bookRepository) {
+public CommandLineRunner alustaTietokantta(BookRepository bookRepository, CategoryRepository categoryRepository) {
     return args -> {
+
+        Category biography = categoryRepository.save(new Category("Biography"));
+        Category fiction = categoryRepository.save(new Category("Fiction"));
+        Category science = categoryRepository.save(new Category("Science"));
+        Category history = categoryRepository.save(new Category("History"));
+
         Book book1 = new Book();
         book1.setTitle("Oppenheimer");
         book1.setAuthor("Kai Bird");
         book1.setPublicationYear(2005);
         book1.setIsbn(9780375412023L);
         book1.setPrice(29.99);
+        book1.setCategory(biography);
+        
 
         Book book2 = new Book();
         book2.setTitle("The Hobbit");
@@ -33,6 +53,7 @@ public CommandLineRunner alustaTietokantta(BookRepository bookRepository) {
         book2.setPublicationYear(1937);
         book2.setIsbn(9780261102217L);
         book2.setPrice(19.99);
+        book2.setCategory(fiction);
 
         Book book3 = new Book();
         book3.setTitle("1984");
@@ -40,6 +61,7 @@ public CommandLineRunner alustaTietokantta(BookRepository bookRepository) {
         book3.setPublicationYear(1949);
         book3.setIsbn(9780451524935L);
         book3.setPrice(14.99);
+        book3.setCategory(history);
 
         Book book4 = new Book();
         book4.setTitle("Pride and Prejudice");
@@ -47,6 +69,7 @@ public CommandLineRunner alustaTietokantta(BookRepository bookRepository) {
         book4.setPublicationYear(1813);
         book4.setIsbn(9780141439518L);
         book4.setPrice(12.99);
+        book4.setCategory(history);
 
         Book book5 = new Book();
         book5.setTitle("Dune");
@@ -54,6 +77,7 @@ public CommandLineRunner alustaTietokantta(BookRepository bookRepository) {
         book5.setPublicationYear(1965);
         book5.setIsbn(9780441172719L);
         book5.setPrice(24.99);
+        book5.setCategory(fiction);
 
         bookRepository.saveAll(
             java.util.List.of(book1, book2, book3, book4, book5)

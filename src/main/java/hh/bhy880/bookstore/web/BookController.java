@@ -1,5 +1,8 @@
 package hh.bhy880.bookstore.web;
 
+
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,15 +10,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
+import hh.bhy880.bookstore.domain.Category;
 import hh.bhy880.bookstore.domain.Book;
 import hh.bhy880.bookstore.domain.BookRepository;
+import hh.bhy880.bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
+    
+    @Autowired 
     private BookRepository bookRepository;
 
-    public BookController(BookRepository bookRepository) {
+    @Autowired 
+    private CategoryRepository categoryRepository;
+    
+
+
+    public BookController(BookRepository bookRepository,
+         CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping (value = "/delete/{id}")
@@ -27,7 +41,7 @@ public class BookController {
     @RequestMapping(value = "/edit/{id}")
     public String showModStu(@PathVariable("id") Long id, Model model){
 	model.addAttribute("book", bookRepository.findById(id).orElseThrow());
-	
+	model.addAttribute("categorys", categoryRepository.findAll());
 	return "editbooks" ;
     }
 
@@ -35,6 +49,7 @@ public class BookController {
     @RequestMapping(value = "/add")
     public String addStudent(Model model){
     model.addAttribute("book", new Book());
+    model.addAttribute("categorys", categoryRepository.findAll());
     return "addbooks";
 }
 
