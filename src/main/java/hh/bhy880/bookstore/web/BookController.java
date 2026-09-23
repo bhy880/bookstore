@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
-import hh.bhy880.bookstore.domain.Category;
 import hh.bhy880.bookstore.domain.Book;
 import hh.bhy880.bookstore.domain.BookRepository;
 import hh.bhy880.bookstore.domain.CategoryRepository;
