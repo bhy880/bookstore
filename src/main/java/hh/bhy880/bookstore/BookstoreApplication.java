@@ -35,7 +35,6 @@ public CommandLineRunner alustaTietokantta(BookRepository bookRepository, Catego
 
         Category biography = categoryRepository.save(new Category("Biography"));
         Category fiction = categoryRepository.save(new Category("Fiction"));
-        Category science = categoryRepository.save(new Category("Science"));
         Category history = categoryRepository.save(new Category("History"));
 
         Book book1 = new Book();
