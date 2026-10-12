@@ -1,4 +1,10 @@
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
 
 <h1>Hello <span sec:authentication="name"></span>!</h1>
 <table class="table table-striped">
@@ -27,3 +33,5 @@
 <div >
     <a href="/add" class="btn btn-success">Add Book</a>
 </div>
+</body>
+</html>

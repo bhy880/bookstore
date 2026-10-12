@@ -1,6 +1,9 @@
 package hh.bhy880.bookstore;
 
 import hh.bhy880.bookstore.domain.CategoryRepository;
+import hh.bhy880.bookstore.domain.User;
+import hh.bhy880.bookstore.domain.UserRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,7 +33,7 @@ public class BookstoreApplication {
 
 
 @Bean
-public CommandLineRunner alustaTietokantta(BookRepository bookRepository, CategoryRepository categoryRepository) {
+public CommandLineRunner alustaTietokantta(BookRepository bookRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
     return args -> {
 
         Category biography = categoryRepository.save(new Category("Biography"));
@@ -81,7 +84,12 @@ public CommandLineRunner alustaTietokantta(BookRepository bookRepository, Catego
         bookRepository.saveAll(
             java.util.List.of(book1, book2, book3, book4, book5)
         );
-    };
+        // Create users: admin/admin user/user
+        User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
+        User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
+        userRepository.save(user1);
+        userRepository.save(user2);
+            };
 }
 
 }
