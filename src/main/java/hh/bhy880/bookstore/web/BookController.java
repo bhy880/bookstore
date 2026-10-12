@@ -62,7 +62,7 @@ public class BookController {
         return "booklist";
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping (value = "/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id, Model model) {
     bookRepository.deleteById(id);
